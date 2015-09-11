@@ -1,0 +1,46 @@
+<div id="patient-results" class="ng-hide" ng-show="showing.content" ng-controller="PatientSearchController">
+  <div class="row">
+    <div class="span6">Search for patients by name</div>
+  </div>
+  <div class="row">
+    <div class="span6">
+      <input 
+      id="patient-search" 
+      class="span6 pull-left input-long " 
+      type="text" 
+      autofocus 
+      contenteditable 
+      focus-on-key="191" 
+      ng-model="searchterm" 
+      placeholder="john smith ..."></input>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span6 result">
+      <div id="signing in"
+        ng-show="oauth2.authorizing()">
+        <h1>Signing in...</h1>
+      </div>
+      <div id="patient-results" ng-cloak when-scrolling="loadMoreIfNeeded()">
+        <table class="table table-striped table-hover">
+          <tr class="patient-row" ng-click="select($index)" ng-repeat="patient in patients">
+            <td class="gender" 
+              ng-bind-html="genderglyph[patient.gender]"></td>
+            <td class="name">
+              <span ng-bind="patientHelper.name(patient)"></span>
+            </td>
+            <td><i ng-bind="patient.birthDate | date"></i></td>
+          </tr>
+        </table>
+        
+        <div ng-show="!showing.searchloading && !oauth2.authorizing() && (patients.length==0)" class="ng-hide">
+          <p>No matches, try broadening your search.</p>
+        </div>
+        
+        <div id="loading-patient-results" ng-show="showing.searchloading && !oauth2.authorizing()" class="ng-hide">
+          <p>Loading...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

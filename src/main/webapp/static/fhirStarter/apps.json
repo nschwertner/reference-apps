@@ -1,0 +1,21 @@
+[
+    {
+        "client_name":"Bilirubin Chart",
+        "client_id":"bilirubin_chart",
+        "launch_uri":"apps/bilirubin-chart/launch.html",
+        "redirect_uri":"apps/bilirubin-chart/",
+        "logo_uri":"./apps/bilirubin-chart/images/bilirubin.png"
+    }, {
+      "client_name": "My Web App",
+      "client_id": "my_web_app",
+      "launch_uri": "http://localhost:8000/fhir-app/launch.html",
+      "redirect_uri": "http://localhost:8000/fhir-app/",
+      "logo_uri": "https://fhir.smarthealthit.org/images/apps/my.png"
+    }, {
+      "client_name": "FHIR Starter",
+      "client_id": "fhir_starter",
+      "redirect_uri": "",
+      "logo_uri": "http://www.hl7.org/implement/standards/fhir/assets/images/fhir-logo-www.png"
+    }
+
+  ]
