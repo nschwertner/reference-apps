@@ -1,14 +1,9 @@
 body {
   padding-top: 60px;
-  font: 1em "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a {
   color: #00b7ff;
-}
-table h2 { margin-bottom: 0em; }
-.table th, .table td {
-  padding: 6px;
-  vertical-align: middle; line-height: auto;
 }
 
 
@@ -44,13 +39,6 @@ img.smartlogo {
 .comparison {margin-bottom: 0.5em;}
 .grade {margin-right: 10px;}
 
-.headerTable {
-   display: inline-block; margin-bottom: 0.2em;
-}
-
-.scoreTable  td.scoreOneline, .scoreTable td.scorePoints {
-   cursor: pointer;
-}
 .pointer{
    cursor: pointer;
    float: right;
@@ -165,14 +153,128 @@ ul.thumbnails li.span12 + li {
     padding-top: 0px; padding-left: 15px; padding-right: 15px;
     font-size: 1.15em;
   }
-  .table th, .table td {
-    padding: 12px 5px;
-  }
-  .table th:first-of-type, .table td:first-of-type {
-    padding-left: 2px;
-  }
-  .table th:last-of-type, .table td:last-of-type {
-    padding-right: 2px;
-  }
 }
 
+.step-bubble{
+    border-radius: 50%;
+    width: 70px;
+    height: 70px; line-height: 50px; text-align: center;
+    color: white; background: #04C;
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.step-bubble span {
+    font-weight: bold;
+    font-size: 70px;
+    position: relative;
+    top: 12px;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 0px;
+    vertical-align: middle;
+}
+
+div.result {
+    position: relative;
+}
+
+.thumb-holder {
+    height: 160px;
+    width: 100%;
+    text-align: center;
+}
+
+.centered {
+    text-align: center;
+}
+
+.thumbnail img {
+    max-height: 100%;
+}
+
+.thumbnail input {
+    max-width: 100%;
+    margin-right: 20px;
+    padding-right: 0;
+}
+
+#patient-create {
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+#patient-results {
+    margin-top: 20px;
+    min-height: 220px;
+    color: black;
+}
+
+#patient-results p {
+    font-size: 1.6em; color: #777;
+}
+
+#patient-search {
+    padding-right: 0px;
+}
+
+#settings, #signin, #signout {
+    float: right;
+    text-decoration:underline;
+}
+
+.settings-dialog {
+    padding: 5em;
+    border: 1px dotted grey;
+}
+
+.settings-dialog textarea {
+    width: 100%;
+    height: 15em;
+    box-sizing: border-box;
+}
+
+.settings-dialog input {
+    box-sizing: border-box;
+    height: 30px;
+    width: 100%;
+}
+
+.shortcut {
+    text-decoration:underline;
+    float: none !important;
+    border: 0px !important;
+    padding: 0px !important;
+}
+
+td.gender {
+    font-size: 1.5em;
+}
+
+td.name {
+}
+
+tr.patient-row {
+    cursor: pointer;
+}
+
+.step-bubble{
+    border-radius: 50%;
+    width: 70px;
+    height: 70px; line-height: 50px; text-align: center;
+    color: white; background: #04C;
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.step-bubble span {
+    font-weight: bold;
+    font-size: 70px;
+    position: relative;
+    top: 12px;
+}

@@ -1,0 +1,15 @@
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="pull-left"><a class="navbar-brand" href="#">SMART FHIR Starter</a></div>
+        <div class="pull-right">
+            <a id="settings" class="navbar-brand" ng-click="showing.settings=!showing.settings" href="">Settings</a>
+            <a id="signin" class="navbar-brand ng-hide" ng-show="showing.signin" ng-click="signin()" href="">Sign
+                In</a>
+            <a id="signout" class="navbar-brand ng-hide" ng-show="showing.signout" ng-click="signout()" href="">Sign
+                Out</a>
+        </div>
+    </div>
+    <div ng-include="'fhirStarter/templates/settings.html'"></div>
+    <div ng-include="'fhirStarter/templates/errors.html'"></div>
+</div>
