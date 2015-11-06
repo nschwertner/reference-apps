@@ -372,7 +372,7 @@ angular.module('fhirStarter').controller("PatientSearchWrapper",
   }
 );
 
-angular.module('fhirStarter').controller('CreateNewPatient', function($scope, patientSearch) {
+angular.module('fhirStarter').controller('CreateNewPatient', function($scope, patientSearch, $uibModal, $log) {
     var now = new Date();
     now.setMilliseconds(0);
     now.setSeconds(0);
@@ -391,22 +391,37 @@ angular.module('fhirStarter').controller('CreateNewPatient', function($scope, pa
 
     $scope.reset();
 
-    // using jQuery
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+
+    $scope.open = function () {
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'createPatientModal',
+            controller: 'ModalInstanceCtrl',
+            resolve: {
+                modalPatient: function () {
+                    return $scope.newPatient;
                 }
             }
-        }
-        return cookieValue;
-    }
+        });
+
+        modalInstance.result.then(function (modalPatient) {
+            $scope.newPatient = modalPatient;
+            // do something with new patient?
+            // reset for future calls to create
+            $scope.reset();
+        }, function () { // dismissed
+            $scope.reset();
+        });
+    };
+  }
+);
+
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $uibModal service used above.
+
+angular.module('fhirStarter').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, modalPatient, patientSearch) {
+
+    $scope.modalPatient = modalPatient;
 
     function changeClass(elementId, className) {
         if (elementId != null) {
@@ -419,19 +434,19 @@ angular.module('fhirStarter').controller('CreateNewPatient', function($scope, pa
     }
 
     function isGivenNameValid() {
-        return $scope.newPatient.givenName != null && $scope.newPatient.givenName != "";
+        return modalPatient.givenName != null && modalPatient.givenName != "";
     }
 
     function isFamilyNameValid() {
-        return $scope.newPatient.familyName != null && $scope.newPatient.familyName != "";
+        return modalPatient.familyName != null && modalPatient.familyName != "";
     }
 
     function isGenderValid() {
-        return $scope.newPatient.gender != null;
+        return modalPatient.gender != null;
     }
 
     function isBirthDateValid() {
-        return $scope.newPatient.birthDate != null;
+        return modalPatient.birthDate != null;
     }
 
     function isPatientValid() {
@@ -454,7 +469,7 @@ angular.module('fhirStarter').controller('CreateNewPatient', function($scope, pa
         }
     }
 
-    $scope.$watchGroup(['newPatient.givenName', 'newPatient.familyName', 'newPatient.gender', 'newPatient.birthDate'], function() {
+    $scope.$watchGroup(['modalPatient.givenName', 'modalPatient.familyName', 'modalPatient.gender', 'modalPatient.birthDate'], function() {
         toggleFormControl(isGivenNameValid(), "givenNameHolder", "givenNameIcon");
         toggleFormControl(isFamilyNameValid(), "familyNameHolder", "familyNameIcon");
         toggleFormControl(isGenderValid(), "genderHolder", "genderIcon");
@@ -463,10 +478,21 @@ angular.module('fhirStarter').controller('CreateNewPatient', function($scope, pa
         enableDisableCreatePatientButton();
     });
 
-    $scope.createPatient = function() {
+    $scope.createPatient = function () {
         if (isPatientValid()) {
+            $uibModalInstance.close();
             console.log("createPatient called", arguments);
+            if (patientSearch.create()) {
+                $uibModalInstance.close($scope.modalPatient);
+            } else {
+                console.log("unable to create patient", arguments);
+            }
+        } else {
+            console.log("sorry not valid", arguments);
         }
     };
-  }
-);
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});

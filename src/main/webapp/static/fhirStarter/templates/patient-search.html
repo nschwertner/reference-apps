@@ -16,17 +16,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <a class="pull-right"
-               data-toggle="modal"
-               data-target="#myModal">
-                Create new patient
-            </a>
-        </div>
-    </div>
-    <div id="myModal" class="modal fade" role="dialog" tabindex="-1">
-        <div class="modal-dialog modal-md">
+        <div class="col-md-12" ng-controller="CreateNewPatient">
             <div ng-include="'fhirStarter/templates/patient-create-modal.html'"></div>
+            <a class="pull-right" ng-click="open()">Create new patient</a>
         </div>
     </div>
     <br/>

@@ -333,6 +333,10 @@ angular.module('fhirStarter').factory('patientSearch', function($route, $routePa
       });
       return d.promise;
     },
+    create: function(){
+        console.log("patientSearch.create called", arguments);
+        return true;
+    },
     smart: function(){
       return smart;
     },
