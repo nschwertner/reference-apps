@@ -333,8 +333,28 @@ angular.module('fhirStarter').factory('patientSearch', function($route, $routePa
       });
       return d.promise;
     },
-    create: function(){
-        console.log("patientSearch.create called", arguments);
+    create: function(newPatient){
+        if (!smart){
+            d.resolve([]);
+            return d.promise;
+        };
+
+        var req =smart.authenticated({
+            url: smart.server.serviceUrl + '/Patient',
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify(newPatient)
+        });
+
+        $.ajax(req)
+        .done(function(){
+            console.log("Patient created!", arguments);
+            $route.reload();
+        })
+        .fail(function(){
+            console.log("Failed to create patient", arguments);
+        });
+
         return true;
     },
     smart: function(){

@@ -8,8 +8,8 @@
             <div id="givenNameHolder" class="form-group has-feedback">
                 <label class="control-label col-sm-3">Given Name:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="givenName"
-                           required ng-model="modalPatient.givenName" placeholder="John ..."
+                    <input type="text" class="form-control" id="given"
+                           required ng-model="modalPatient.name[0].given" placeholder="John ..."
                            aria-describedby="patientGivenNameErrorStatus">
                     <span id="givenNameIcon" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                     <span id="patientGivenNameErrorStatus" class="sr-only">(error)</span>
@@ -18,8 +18,8 @@
             <div id="familyNameHolder" class="form-group has-feedback">
                 <label class="control-label col-sm-3">Family Name:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="familyName"
-                           required ng-model="modalPatient.familyName" placeholder="Smith ..."
+                    <input type="text" class="form-control" id="family"
+                           required ng-model="modalPatient.name[0].family" placeholder="Smith ..."
                            aria-describedby="patientFamilyNameErrorStatus">
                     <span id="familyNameIcon" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                     <span id="patientFamilyNameErrorStatus" class="sr-only">(error)</span>

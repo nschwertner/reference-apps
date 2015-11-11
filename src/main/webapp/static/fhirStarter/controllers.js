@@ -377,11 +377,15 @@ angular.module('fhirStarter').controller('CreateNewPatient', function($scope, pa
     now.setMilliseconds(0);
     now.setSeconds(0);
 
-    $scope.master = {
-        resourceType: 'Patient',
-        active: 'true',
-        birthDate: now
-    };
+    var text =
+        '{"resourceType":"Patient",'
+        + '"active":"true",'
+        + '"name":['
+        + '{"given":"", "family":"", "text":""}'
+        + ']}';
+
+    $scope.master = JSON.parse(text);
+    $scope.master.birthDate = now;
 
     $scope.newPatient = {};
 
@@ -434,11 +438,11 @@ angular.module('fhirStarter').controller('ModalInstanceCtrl', function ($scope, 
     }
 
     function isGivenNameValid() {
-        return modalPatient.givenName != null && modalPatient.givenName != "";
+        return modalPatient.name[0].given != null && modalPatient.name[0].given != "";
     }
 
     function isFamilyNameValid() {
-        return modalPatient.familyName != null && modalPatient.familyName != "";
+        return modalPatient.name[0].family != null && modalPatient.name[0].family != "";
     }
 
     function isGenderValid() {
@@ -461,7 +465,7 @@ angular.module('fhirStarter').controller('ModalInstanceCtrl', function ($scope, 
 
     function toggleFormControl(isValid, formControlId, formIconId) {
         if (isValid) {
-            changeClass(formControlId, "form-group has-success has-feedback");
+            changeClass(formControlId, "form-group has-feedback");
             changeClass(formIconId, "glyphicon glyphicon-ok form-control-feedback");
         } else {
             changeClass(formControlId, "form-group has-error has-feedback");
@@ -469,7 +473,7 @@ angular.module('fhirStarter').controller('ModalInstanceCtrl', function ($scope, 
         }
     }
 
-    $scope.$watchGroup(['modalPatient.givenName', 'modalPatient.familyName', 'modalPatient.gender', 'modalPatient.birthDate'], function() {
+    $scope.$watchGroup(['modalPatient.name[0].given', 'modalPatient.name[0].family', 'modalPatient.gender', 'modalPatient.birthDate'], function() {
         toggleFormControl(isGivenNameValid(), "givenNameHolder", "givenNameIcon");
         toggleFormControl(isFamilyNameValid(), "familyNameHolder", "familyNameIcon");
         toggleFormControl(isGenderValid(), "genderHolder", "genderIcon");
@@ -481,11 +485,12 @@ angular.module('fhirStarter').controller('ModalInstanceCtrl', function ($scope, 
     $scope.createPatient = function () {
         if (isPatientValid()) {
             $uibModalInstance.close();
-            console.log("createPatient called", arguments);
-            if (patientSearch.create()) {
+            $scope.modalPatient.name[0].text = $scope.modalPatient.name[0].given + " " + $scope.modalPatient.name[0].family;
+            if (patientSearch.create($scope.modalPatient)) {
                 $uibModalInstance.close($scope.modalPatient);
+                console.log("successful response from patientSearch.create", arguments);
             } else {
-                console.log("unable to create patient", arguments);
+                console.log("unsuccessful response from patientSearch.create", arguments);
             }
         } else {
             console.log("sorry not valid", arguments);
