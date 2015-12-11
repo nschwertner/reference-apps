@@ -60,8 +60,9 @@ var reynolds_risk_score = function(p){
 
 var compute_other_scores = function(){
   p2 = $.extend(true, {}, p);
-  p2.sbp.value = 120;
-  score_if_sbp_of_120 = reynolds_risk_score(p2);
+  p2.sbp.value = (p2.sbp.value - 10 >= 0) ? p2.sbp.value - 10 : 0;
+  sbp_10_lower = p2.sbp.value;
+  score_if_sbp_of_10_lower = reynolds_risk_score(p2);
   p2.sbp.value = p.sbp.value; // reset sbp
   p2.smoker_p.value = false;
   score_if_non_smoker = reynolds_risk_score(p2);
@@ -95,9 +96,14 @@ var redraw = function(){
     this.animate({opacity: 1}, 500, '>'); 
   })
   
-  r.score_if_sbp_of_120_text.attr({text: score_if_sbp_of_120+'%'});
+  r.score_if_sbp_of_10_lower_text.attr({text: score_if_sbp_of_10_lower+'%'});
+  r.sbp_10_lower.attr({text: 'if your blood pressure were '+ sbp_10_lower +'mm/Hg'});
   r.score_if_all_optimal_text.attr({text: score_if_all_optimal+'%'});
   r.if_you_quit_set.items[0].attr({text: score_if_non_smoker+'%'});
+  r.risk_prelude.attr({text: 'If you\'re ' + (p.smoker_p.value ? '' : 'not ') + 
+     'a smoker with a blood pressure\n of ' + p.sbp.value + 'mm/Hg ' + (p.fx_of_mi_p.value ? 
+      'and have ' : 'and don\'t have ') +
+      'a family\n history of heart attack before the age of 60\n (one or both parents) your risk over 10 years is:'})
   
   if (p.smoker_p.value === false) {
     r.if_you_quit_set.animate({opacity: 0}, 500, '>');
@@ -147,7 +153,7 @@ var draw_visualization = function() {
     r.g.text(162, 100+3, 'DOB:').attr({'fill': '#888', 'font-size': '12px', 'font-weight': '200'});
     r.g.text(192-1, 100, p.birthday.value.toString("yyyy-MM-dd"))
 
-    // draggable for sbp. TODO: fix range: 90 mmHg to 190
+    // draggable for sbp
     var c = null;
     r.g.text(500, 55-24, 'Note: these results are valid for non-diabetics only!').attr({'font-size': '12px', 'font-weight': 'normal', 'fill': "#888"});
 
@@ -182,8 +188,8 @@ var draw_visualization = function() {
 
     // SBP slider
     r.g.text(500+20+10, 55+24+24, 'Systolic blood pressure').attr({'font-size': '16px', 'font-weight': 'normal'});
-    var min_x = 320
-      , max_x = 520
+    var min_x = 415
+      , max_x = 515
       , len_x = max_x - min_x
       , start_value = 100
       , start_value_delta = p.sbp.value - start_value
@@ -191,6 +197,7 @@ var draw_visualization = function() {
       , y = 55+24+24
       , start_r = 13
       , click_r = 15
+      , offset_value = 90
 
     r.path('M'+min_x+' '+y+' L'+max_x+' '+y).attr({'stroke': '#aaa', 'stroke-dasharray': '.', 'stroke-linecap': 'butt'})        
     var t = r.g.text(start_x, y, p.sbp.value).attr({'cursor': 'pointer', 'font': '11px Consolas, monospace', 'text-anchor': 'middle', 'font-weight': 'bold', 'fill': '#000'});
@@ -219,14 +226,14 @@ var draw_visualization = function() {
       
       this.attr({cx: cx});
       // this.attr({fill: 'hsl(18, 88, '+ 63 + (cx - min_x) + ')'});
-      this.sbp = Math.round(cx - min_x); 
+      this.sbp = Math.round((cx - min_x) + offset_value); 
       t.attr({
           text: this.sbp,
           x: cx
       });
     },
     up = function () {
-      this.sbp = Math.round(this.attr('cx') - min_x);
+      this.sbp = Math.round((this.attr('cx') - min_x) + offset_value);
       this.animate({r: start_r}, 500, ">");
       p.sbp.value = this.sbp;
       redraw();
@@ -401,16 +408,16 @@ var draw_visualization = function() {
     r.g.text(x, y-12, title).attr({'font-size': '16px'})
 
     r.rect(x+0,         y, unit_w*4-space,       h).attr({fill: '#A0BE78', stroke: 'none'});
-    r.g.text(x, y+h+8, 'Low').attr({'font-size': '12px', 'font-weight': 'normal'})
+    r.g.text(x, y+h+8, 'High risk').attr({'font-size': '12px', 'font-weight': 'normal'})
     r.g.text(x, y+h+20, '0 mg/dL').attr({'font-size': '10px', 'font-weight': '200', 'fill': '#888'})
 
     r.rect(x+unit_w*4,    y, unit_w*2-space,     h).attr({fill: '#86AD52', stroke: 'none'});
-    r.g.text(x+unit_w*4,  y+h+8, 'Normal').attr({'font-size': '12px', 'font-weight': 'normal'})
-    r.g.text(x+unit_w*4,  y+h+20, '100 - 129').attr({'font-size': '10px', 'font-weight': '200', 'fill': '#888'})
+    r.g.text(x+unit_w*4,  y+h+8, 'Intermediate').attr({'font-size': '12px', 'font-weight': 'normal'})
+    r.g.text(x+unit_w*4,  y+h+20, '40 - 59').attr({'font-size': '10px', 'font-weight': '200', 'fill': '#888'})
 
     r.rect(x+unit_w*6,  y, unit_w*4,           h).attr({fill: '#5E892B', stroke: 'none'});
-    r.g.text(x+unit_w*6, y+h+8, 'High').attr({'font-size': '12px', 'font-weight': 'normal'})
-    r.g.text(x+unit_w*6, y+h+20, '129 - 159').attr({'font-size': '10px', 'font-weight': '200', 'fill': '#888'})
+    r.g.text(x+unit_w*6, y+h+8, 'Protective').attr({'font-size': '12px', 'font-weight': 'normal'})
+    r.g.text(x+unit_w*6, y+h+20, '60+').attr({'font-size': '10px', 'font-weight': '200', 'fill': '#888'})
 
     r.path('M' + cap_x     + ' ' + cap_y + 
            'L' + cap_mid_x + ' ' + cap_mid_y + 
@@ -429,8 +436,12 @@ var draw_visualization = function() {
     r.g.text(50, 720, 'Your risk').attr({'font-size': '18px', 'font-weight': 'bold'})
     r.g.text(50+100, 720, 'You show an elevated risk of cardiovascular disease')
       .attr({'font-size': '18px', 'font-weight': 'normal', 'fill': '#888'})
-    r.g.text(50, 780, 'If you\'re a smoker with normal blood\n pressure, (130 mm/Hg) but family history\n of heart attack before the age of 60 (one\n or both parents) your risk over 10 years is:')
+    r.risk_prelude = r.g.text(50, 780, 'If you\'re ' + (p.smoker_p.value ? '' : 'not ') + 
+     'a smoker with a blood pressure\n of ' + p.sbp.value + 'mm/Hg ' + (p.fx_of_mi_p.value ? 
+      'and have ' : 'and don\'t have ') +
+      'a family\n history of heart attack before the age of 60\n (one or both parents) your risk over 10 years is:')
       .attr({'font-size': '14px', 'font-weight': 'normal', 'fill': '#888'})
+
 
     r.score_text = r.g.text(320, 780, score+'%')
       .attr({'font-size': '72px', 'font-weight': 'bold', 'fill': '#6A9C2D', 'font-family': "Consolas, monospace", 'font-weight': '900'})
@@ -438,8 +449,8 @@ var draw_visualization = function() {
     y = 750;
     r.g.text(450, y, 'Your risk would be lowered to:').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'})
 
-    r.score_if_sbp_of_120_text = r.g.text(460, y+16, score_if_sbp_of_120+'%').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'})
-    r.g.text(450+36, y+16, 'if your blood pressure were 120mm/Hg').attr({'font-size': '14px', 'fill': '#888'})
+    r.score_if_sbp_of_10_lower_text = r.g.text(460, y+16, score_if_sbp_of_10_lower+'%').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'})
+    r.sbp_10_lower =  r.g.text(450+36, y+16, 'if your blood pressure were ' + sbp_10_lower + 'mm/Hg').attr({'font-size': '14px', 'fill': '#888'})
 
     r.score_if_all_optimal_text = r.g.text(460, y+32, score_if_all_optimal+'%').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'})
     r.g.text(450+36, y+32, 'if you didn\'t smoke and all levels were optimal').attr({'font-size': '14px', 'fill': '#888'})
