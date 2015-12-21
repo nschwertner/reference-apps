@@ -30,8 +30,8 @@
     {
         "client_name" : "Patient Data Manager",
         "client_id" : "patient_data_manager",
-        "launch_uri" : "http://localhost:8080/hsp-patient-data-manager/launch",
-        "redirect_uri" : "http://localhost:8080/hsp-patient-data-manager/redirect",
+        "launch_uri" : "http://localhost:8080/hsp-patient-data-manager/static/patient-data-manager/launch.html",
+        "redirect_uri" : "http://localhost:8080/hsp-patient-data-manager/static/patient-data-manager/",
         "logo_uri" : "http://localhost:8080/hsp-patient-data-manager/static/patient-data-manager/images/pdm.png"
     },
     {
