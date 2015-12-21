@@ -8,12 +8,6 @@ angular.module('fhirStarter').factory('fhirSettings', function($rootScope, oauth
             auth: {
                 type: 'oauth2'
             }
-        }, {
-            name: 'Local HSP dev server, no auth',
-            serviceUrl: 'https://sandbox.hspconsortium.org/dstu2/open-hsp-reference-api/data',
-            auth: {
-                type: 'none'
-            }
         }
     ];
 
