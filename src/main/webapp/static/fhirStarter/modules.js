@@ -12,10 +12,14 @@ angular.module('fhirStarter', ['ngAnimate', 'ngRoute','ngSanitize','ngCookies', 
   $routeProvider.otherwise({redirectTo:'/ui/select-patient'});
 
   $routeProvider.when('/ui/patient-selected/:pid', {
-    templateUrl:'fhirStarter/templates/patient-selected.html',
+    templateUrl:'fhirStarter/templates/patient-selected.html'
   });
 
-  $routeProvider.when('/ui/authorize', {
+    $routeProvider.when('/ui/user-context-apps', {
+        templateUrl:'fhirStarter/templates/user-context-apps.html'
+    });
+
+    $routeProvider.when('/ui/authorize', {
     templateUrl:'fhirStarter/templates/auth.html',
     controller: function(){
     

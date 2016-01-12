@@ -132,6 +132,127 @@ angular.module('fhirStarter').controller("PatientViewWrapper",
   }
 );
 
+angular.module('fhirStarter').controller("UserViewWrapper",
+    function($scope, $routeParams, $rootScope, patientSearch, fhirSettings) {
+
+        fhirSettings.ensureSettingsAreAvailable().then(function () {
+            if (patientSearch.connected() || !fhirSettings.authServiceRequired()) {
+                $scope.showing.content = true;
+                $scope.showing.loading = true;
+                $scope.showing.apps = false;
+                getUserInfo(patientSearch.smart().state.provider.oauth2.authorize_uri).then(function(user){
+                    $scope.showing.loading = false;
+                    $scope.showing.apps = true;
+                    $scope.user = user;
+                });
+            } else {
+                if (sessionStorage.tokenResponse) {
+                    // access token is available, so sign in now
+                    $scope.signin();
+                } else {
+                    $scope.showing.signin = true;
+                    $scope.showing.loading = false;
+                    $scope.showing.apps = false;
+                }
+            }
+        });
+
+        function getUserInfo(authorize_uri) {
+            var deferred = $.Deferred();
+            var userInfoEndpoint = authorize_uri.replace("authorize", "userinfo");
+            $.ajax({
+                url: userInfoEndpoint,
+                type: 'GET',
+                contentType: "application/json",
+                beforeSend : function( xhr ) {
+                    xhr.setRequestHeader( 'Authorization', 'BEARER ' + patientSearch.smart().server.auth.token );
+                }
+            }).done(function(result){
+                    deferred.resolve(result);
+                    $rootScope.$digest();
+                }).fail(function(){
+                });
+            return deferred;
+        }
+    }
+);
+
+angular.module('fhirStarter').controller("UserViewController", function($scope, userApp, patientSearch, $routeParams, $rootScope, $location, fhirSettings, random, customFhirApp) {
+    $scope.all_user_apps = [];
+    userApp.success(function(apps){
+        $scope.all_user_apps = apps;
+    });
+
+    fhirSettings.get().then( function(settings) {
+        $scope.fhirServiceUrl = settings.serviceUrl;
+        $scope.fhirAuthType = settings.auth.type;
+
+        if ($scope.fhirAuthType === "none") {
+            $scope.launch = function launch(app){
+
+                /* Hack to get around the window popup behavior in modern web browsers
+                 (The window.open needs to be synchronous with the click even to
+                 avoid triggering  popup blockers. */
+
+                window.open(app.launch_uri+'?fhirServiceUrl='+encodeURIComponent($scope.fhirServiceUrl)+"&patientId="+encodeURIComponent($routeParams.pid), '_blank');
+
+            };
+        } else {
+            $scope.launch = function launch(app){
+
+                /* Hack to get around the window popup behavior in modern web browsers
+                 (The window.open needs to be synchronous with the click even to
+                 avoid triggering  popup blockers. */
+
+                var key = random(32);
+                window.localStorage[key] = "requested-launch";
+                var appWindow = window.open('launch.html?'+key, '_blank');
+
+                patientSearch
+                    .registerContext(app, {})
+                    .then(function(c){
+                        console.log(patientSearch.smart());
+                        window.localStorage[key] = JSON.stringify({
+                            app: app,
+                            iss: patientSearch.smart().server.serviceUrl,
+                            context: c
+                        });
+                    }, function(err){
+                        console.log("Could not register launch context: ", err);
+                        appWindow.close();
+                        $rootScope.$emit('reconnect-request');
+                        $rootScope.$emit('error', 'Could not register launch context (see console)');
+                        $rootScope.$digest();
+                    });
+            };
+        }
+
+        $scope.customapp = customFhirApp.get();
+
+        $scope.launchCustom = function launchCustom(){
+            customFhirApp.set($scope.customapp);
+            $scope.launch({
+                client_id: $scope.customapp.id,
+                launch_uri: $scope.customapp.url
+            });
+        };
+
+        $scope.givens = function(name) {
+            return name && name.givens.join(" ");
+        };
+    });
+});
+
+angular.module('fhirStarter').controller("UserContextController",
+    function($scope, $routeParams, $rootScope, $location) {
+
+        $scope.continueWithoutPatient =  function(){
+            var loc = "/ui/user-context-apps";
+            return $location.url(loc);
+        };
+    }
+);
+
 angular.module('fhirStarter').controller("BindContextController",
   function($scope, patient, patientSearch, $routeParams, $rootScope, $location, oauth2, fhirSettings, tools) {
 

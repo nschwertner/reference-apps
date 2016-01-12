@@ -278,3 +278,13 @@ tr.patient-row {
     position: relative;
     top: 12px;
 }
+
+.step-bubble-spaceholder{
+    height: 50px;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.content-column {
+    padding: 5px;
+}

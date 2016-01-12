@@ -107,7 +107,7 @@ angular.module('fhirStarter').factory('oauth2', function($rootScope, $location) 
       var client = {
         "client_id": "fhir_starter",
         "redirect_uri": thisUrl,
-        "scope":  "smart/orchestrate_launch user/*.*"
+        "scope":  "smart/orchestrate_launch user/*.* profile openid"
       };
       authorizing = true;
       FHIR.oauth2.authorize({
@@ -395,6 +395,11 @@ angular.module('fhirStarter').factory('patient', function() {
 angular.module('fhirStarter').factory('app', ['$http',function($http) {
   var apps = $http.get('fhirStarter/apps.json');
   return apps;
+}]);
+
+angular.module('fhirStarter').factory('userApp', ['$http',function($http) {
+    var apps = $http.get('fhirStarter/user-apps.json');
+    return apps;
 }]);
 
 angular.module('fhirStarter').factory('customFhirApp', function() {
