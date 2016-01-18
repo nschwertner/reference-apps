@@ -140,7 +140,7 @@ angular.module('fhirStarter').controller("UserViewWrapper",
                 $scope.showing.content = true;
                 $scope.showing.loading = true;
                 $scope.showing.apps = false;
-                getUserInfo(patientSearch.smart().state.provider.oauth2.authorize_uri).then(function(user){
+                getUserInfo().then(function(user){
                     $scope.showing.loading = false;
                     $scope.showing.apps = true;
                     $scope.user = user;
@@ -157,20 +157,23 @@ angular.module('fhirStarter').controller("UserViewWrapper",
             }
         });
 
-        function getUserInfo(authorize_uri) {
+        function getUserInfo() {
             var deferred = $.Deferred();
-            var userInfoEndpoint = authorize_uri.replace("authorize", "userinfo");
-            $.ajax({
-                url: userInfoEndpoint,
-                type: 'GET',
-                contentType: "application/json",
-                beforeSend : function( xhr ) {
-                    xhr.setRequestHeader( 'Authorization', 'BEARER ' + patientSearch.smart().server.auth.token );
-                }
-            }).done(function(result){
-                    deferred.resolve(result);
+            var userIdSections = patientSearch.smart().userId.split("/");
+
+            $.when(smart.api.read({type: userIdSections[userIdSections.length-2], id: userIdSections[userIdSections.length-1]}))
+                .done(function(userResult){
+
+                    var user = {name:""};
+                    angular.forEach(userResult.data.name.given, function (value) {
+                        user.name = user.name + ' ' + String(value);
+                    });
+                    angular.forEach(userResult.data.name.family, function (value) {
+                        user.name = user.name + ' ' + value;
+                    });
+                    user.id  = userResult.data.id;
+                    deferred.resolve(user);
                     $rootScope.$digest();
-                }).fail(function(){
                 });
             return deferred;
         }
