@@ -30,8 +30,8 @@
     {
         "client_name" : "Patient Data Manager",
         "client_id" : "patient_data_manager",
-        "launch_uri" : "https://sandbox.hspconsortium.org/hsp-patient-data-manager/launch",
-        "redirect_uri" : "https://sandbox.hspconsortium.org/hsp-patient-data-manager/redirect",
+        "launch_uri" : "https://sandbox.hspconsortium.org/hsp-patient-data-manager/static/patient-data-manager/launch.html",
+        "redirect_uri" : "https://sandbox.hspconsortium.org/hsp-patient-data-manager/static/patient-data-manager/redirect.html",
         "logo_uri" : "https://sandbox.hspconsortium.org/hsp-patient-data-manager/static/patient-data-manager/images/pdm.png"
     },
     {

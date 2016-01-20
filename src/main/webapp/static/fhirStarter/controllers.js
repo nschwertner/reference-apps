@@ -159,7 +159,12 @@ angular.module('fhirStarter').controller("UserViewWrapper",
 
         function getUserInfo() {
             var deferred = $.Deferred();
-            var userIdSections = patientSearch.smart().userId.split("/");
+            var historyIndex = patientSearch.smart().userId.lastIndexOf("/_history");
+            var userUrl = patientSearch.smart().userId;
+            if (historyIndex > -1 ){
+                userUrl = patientSearch.smart().userId.substring(0, historyIndex);
+            }
+            var userIdSections = userUrl.split("/");
 
             $.when(smart.api.read({type: userIdSections[userIdSections.length-2], id: userIdSections[userIdSections.length-1]}))
                 .done(function(userResult){
