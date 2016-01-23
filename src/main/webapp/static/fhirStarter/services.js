@@ -222,8 +222,7 @@ angular.module('fhirStarter').factory('patientSearch', function($route, $routePa
       d = $q.defer();
 
       var req =smart.authenticated({
-//        url: smart.server.serviceUrl + '/_services/smart/Launch',
-        url: 'http://localhost:8080/hsp-reference-api/smart/Launch',
+        url: smart.server.serviceUrl + '/_services/smart/Launch',
         type: 'POST',
         contentType: "application/json",
         data: JSON.stringify({
