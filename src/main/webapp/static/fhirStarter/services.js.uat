@@ -8,12 +8,6 @@ angular.module('fhirStarter').factory('fhirSettings', function($rootScope, oauth
             auth: {
                 type: 'oauth2'
             }
-        }, {
-            name: 'Local HSP dev server, no auth',
-            serviceUrl: 'http://54.213.219.198:9080/uat/open-hsp-reference-api/data',
-            auth: {
-                type: 'none'
-            }
         }
     ];
 
@@ -222,8 +216,7 @@ angular.module('fhirStarter').factory('patientSearch', function($route, $routePa
       d = $q.defer();
 
       var req =smart.authenticated({
-//        url: smart.server.serviceUrl + '/_services/smart/Launch',
-        url: 'http://54.213.219.198:9080/uat/hsp-reference-api/smart/Launch',
+        url: smart.server.serviceUrl + '/_services/smart/Launch',
         type: 'POST',
         contentType: "application/json",
         data: JSON.stringify({
