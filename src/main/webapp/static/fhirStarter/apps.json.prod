@@ -9,23 +9,23 @@
     {
         "client_name" : "Growth Chart",
         "client_id" : "growth_chart",
-        "launch_uri" : "https://sandbox.hspconsortium.org/dstu2/demo/static/apps/growth-chart/launch.html",
-        "redirect_uri" : "https://sandbox.hspconsortium.org/dstu2/demo/static/apps/growth-chart/",
-        "logo_uri" : "https://sandbox.hspconsortium.org/dstu2/demo/static/images/apps/growth-chart.png"
+        "launch_uri" : "https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/apps/growth-chart/launch.html",
+        "redirect_uri" : "https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/apps/growth-chart/",
+        "logo_uri" : "https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/images/apps/growth-chart.png"
     },
     {
         "client_name" : "BP Centiles",
         "client_id" : "bp_centiles",
-        "launch_uri" : "https://sandbox.hspconsortium.org/dstu2/demo/static/apps/bp-centiles/launch.html",
-        "redirect_uri" : "https://sandbox.hspconsortium.org/dstu2/demo/static/apps/bp-centiles/",
-        "logo_uri" : "https://sandbox.hspconsortium.org/dstu2/demo/static/images/apps/bpc.png"
+        "launch_uri" : "https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/apps/bp-centiles/launch.html",
+        "redirect_uri" : "https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/apps/bp-centiles/",
+        "logo_uri" : "https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/images/apps/bpc.png"
     },
     {
         "client_name" : "Cardiac Risk",
         "client_id" : "cardiac_risk",
-        "launch_uri" : "https://sandbox.hspconsortium.org/dstu2/demo/static/apps/cardiac-risk/launch.html",
-        "redirect_uri" : "https://sandbox.hspconsortium.org/dstu2/demo/static/apps/cardiac-risk/",
-        "logo_uri" : "https://sandbox.hspconsortium.org/dstu2/demo/static/images/apps/cardiac-risk.png"
+        "launch_uri" : "https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/apps/cardiac-risk/launch.html",
+        "redirect_uri" : "https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/apps/cardiac-risk/",
+        "logo_uri" : "https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/images/apps/cardiac-risk.png"
     },
     {
         "client_name" : "Duke Pillbox",

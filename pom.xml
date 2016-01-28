@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.hspconsortium</groupId>
-    <artifactId>hsp-reference-apps</artifactId>
+    <artifactId>hspc-reference-apps</artifactId>
     <version>0.9-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -12,7 +12,7 @@
     <url>https://healthservices.atlassian.net/wiki/display/HSPC/Healthcare+Services+Platform+Consortium</url>
 
     <build>
-        <finalName>hsp-reference-apps</finalName>
+        <finalName>hspc-reference-apps</finalName>
     </build>
 
 </project>

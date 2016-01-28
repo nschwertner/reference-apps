@@ -6,7 +6,7 @@ START TRANSACTION;
 
 -- Pediatric Growth Chart
 INSERT INTO client_details (client_id, client_name, logo_uri, access_token_validity_seconds, token_endpoint_auth_method) VALUES
-	('growth_chart', 'Pediatric Growth Chart', 'http://localhost:8080/hsp-reference-apps/static/images/apps/growth-chart.png', 86400, 'NONE');
+	('growth_chart', 'Pediatric Growth Chart', 'http://localhost:8080/hspc-reference-apps/static/images/apps/growth-chart.png', 86400, 'NONE');
 
 INSERT INTO client_scope (owner_id, scope) VALUES
 	((SELECT id from client_details where client_id = 'growth_chart'), 'launch'),
