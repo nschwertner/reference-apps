@@ -7,8 +7,7 @@ INSERT INTO client_details (client_id, client_name, access_token_validity_second
 
 INSERT INTO client_redirect_uri (owner_id, redirect_uri) VALUES
 	((SELECT id from client_details where client_id = 'f0ea39ca-9ad0-4676-baae-d28878baf75e'), 'http://pillbox.medapptech.com/initapp/index.html'),
-	((SELECT id from client_details where client_id = 'f0ea39ca-9ad0-4676-baae-d28878baf75e'), 'http://pillbox.medapptech.com/initapp/'),
-	((SELECT id from client_details where client_id = 'f0ea39ca-9ad0-4676-baae-d28878baf75e'), 'https://sandbox.hspconsortium.org/hsp-sandbox-manager');
+	((SELECT id from client_details where client_id = 'f0ea39ca-9ad0-4676-baae-d28878baf75e'), 'http://pillbox.medapptech.com/initapp/');
 
 INSERT INTO client_contact (owner_id, contact) VALUES
   ((SELECT id from client_details where client_id = 'f0ea39ca-9ad0-4676-baae-d28878baf75e'), 'bradi.granger@duke.edu'),
