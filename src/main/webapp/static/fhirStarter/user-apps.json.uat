@@ -1,10 +1,10 @@
 [
     {
         "client_name" : "HSP Appointment Viewer",
-        "client_id" : "hsp_appointment_viewer",
-        "launch_uri" : "http://54.213.219.198:9080/uat/hsp-appointment-viewer/launch",
-        "redirect_uri" : "http://54.213.219.198:9080/uat/hsp-appointment-viewer/redirect",
-        "logo_uri" : "http://54.213.219.198:9080/uat/hsp-appointment-viewer/images/appointment-viewer.png"
+        "client_id" : "hspc_appointment_viewer",
+        "launch_uri" : "http://54.213.219.198:9080/uat/hspc-appointment-viewer/launch",
+        "redirect_uri" : "http://54.213.219.198:9080/uat/hspc-appointment-viewer/redirect",
+        "logo_uri" : "http://54.213.219.198:9080/uat/hspc-appointment-viewer/images/appointment-viewer.png"
     },
     {
         "client_name" : "My Web App",

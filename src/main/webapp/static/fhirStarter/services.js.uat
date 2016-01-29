@@ -4,7 +4,7 @@ angular.module('fhirStarter').factory('fhirSettings', function($rootScope, oauth
     var servers = [
         {
             name: 'Local HSP dev server, oauth',
-            serviceUrl: 'http://54.213.219.198:9080/uat/hsp-reference-api/data',
+            serviceUrl: 'http://54.213.219.198:9080/uat/hspc-reference-api/data',
             auth: {
                 type: 'oauth2'
             }
