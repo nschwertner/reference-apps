@@ -35,7 +35,7 @@
         "logo_uri" : "http://54.213.219.198:9080/uat/hspc-patient-data-manager/static/patient-data-manager/images/pdm.png"
     },
     {
-        "client_name" : "HSP Appointment Viewer",
+        "client_name" : "HSPC Appointment Viewer",
         "client_id" : "hspc_appointment_viewer",
         "launch_uri" : "http://54.213.219.198:9080/uat/hspc-appointment-viewer/launch",
         "redirect_uri" : "http://54.213.219.198:9080/uat/hspc-appointment-viewer/redirect",

@@ -42,7 +42,7 @@
         "logo_uri" : "https://sandbox.hspconsortium.org/hspc-patient-data-manager/static/patient-data-manager/images/pdm.png"
     },
     {
-        "client_name" : "HSP Appointment Viewer",
+        "client_name" : "HSPC Appointment Viewer",
         "client_id" : "hspc_appointment_viewer",
         "launch_uri" : "https://sandbox.hspconsortium.org/hspc-appointment-viewer/launch",
         "redirect_uri" : "https://sandbox.hspconsortium.org/hspc-appointment-viewer/redirect",
