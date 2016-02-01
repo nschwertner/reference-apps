@@ -24,16 +24,16 @@ INSERT INTO whitelisted_site (creator_user_id, client_id) VALUES
 	('admin', 'fhir_starter');
 
 INSERT INTO whitelisted_site_scope (owner_id, scope) VALUES
-	((SELECT id from client_details where client_id = 'fhir_starter'), 'user/*.*');
+	((SELECT id from whitelisted_site where client_id = 'fhir_starter'), 'user/*.*');
 
 INSERT INTO whitelisted_site_scope (owner_id, scope) VALUES
-	((SELECT id from client_details where client_id = 'fhir_starter'), 'smart/orchestrate_launch');
+	((SELECT id from whitelisted_site where client_id = 'fhir_starter'), 'smart/orchestrate_launch');
 
 INSERT INTO whitelisted_site_scope (owner_id, scope) VALUES
-	((SELECT id from client_details where client_id = 'fhir_starter'), 'openid');
+	((SELECT id from whitelisted_site where client_id = 'fhir_starter'), 'openid');
 
 INSERT INTO whitelisted_site_scope (owner_id, scope) VALUES
-	((SELECT id from client_details where client_id = 'fhir_starter'), 'profile');
+	((SELECT id from whitelisted_site where client_id = 'fhir_starter'), 'profile');
 
 COMMIT;
 
