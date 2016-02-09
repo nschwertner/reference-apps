@@ -67,7 +67,7 @@
         "client_id" : "my_web_app",
         "launch_uri" : "http://localhost:8000/fhir-app/launch.html",
         "redirect_uri" : "http://localhost:8000/fhir-app/",
-        "logo_uri" : "https://fhir.smarthealthit.org/images/apps/my.png"
+        "logo_uri" : "https://fhir-dstu2.meducation.com/images/meducation_icon.png"
     },
     {
         "client_name" : "FHIR Starter",
