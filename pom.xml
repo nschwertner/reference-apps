@@ -17,7 +17,7 @@
     <url>https://healthservices.atlassian.net/wiki/display/HSPC/Healthcare+Services+Platform+Consortium</url>
 
     <build>
-        <finalName>hspc-reference-apps</finalName>
+        <finalName>${project.artifactId}</finalName>
     </build>
 
 </project>
