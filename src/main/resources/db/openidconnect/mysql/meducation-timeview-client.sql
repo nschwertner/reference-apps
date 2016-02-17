@@ -3,7 +3,7 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 
 INSERT INTO client_details (client_id, client_name, access_token_validity_seconds, logo_uri, token_endpoint_auth_method) VALUES
-	('timeview', 'Meducation Timeview', 86400, '', 'NONE');
+	('timeview', 'Meducation Timeview', 86400, 'http://timeviewfhir-dstu2.meducation.com/images/MeducationTimeview251x160.png', 'NONE');
 
 INSERT INTO client_redirect_uri (owner_id, redirect_uri) VALUES
 	((SELECT id from client_details where client_id = 'timeview'), 'https://timeviewfhir-dstu2.meducation.com/index.html');
