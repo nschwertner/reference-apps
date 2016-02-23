@@ -3,7 +3,7 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 
 INSERT INTO client_details (client_id, client_name, access_token_validity_seconds, logo_uri, token_endpoint_auth_method) VALUES
-	('040c7a59-7250-43e6-946d-941e765320a6', 'VisualDx Diagnostic CDS DSTU 2', 86400, 'https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/images/apps/visualdx_logo.gif', 'NONE');
+	('040c7a59-7250-43e6-946d-941e765320a6', 'VisualDx Diagnostic CDS DSTU 2', 86400, 'https://sandbox.hspconsortium.org/dstu2/hspc-reference-apps/static/images/apps/visualdx_logo.png', 'NONE');
 
 INSERT INTO client_redirect_uri (owner_id, redirect_uri) VALUES
 	((SELECT id from client_details where client_id = '040c7a59-7250-43e6-946d-941e765320a6'), 'https://clupea.visualdx.com/smart/v2/fhir.html');
