@@ -16,6 +16,13 @@
     <description>HSPC/SMART reference applications</description>
     <url>https://healthservices.atlassian.net/wiki/display/HSPC/Healthcare+Services+Platform+Consortium</url>
 
+    <scm>
+        <connection>scm:git:ssh://git@bitbucket.org/hspconsortium/reference-apps.git</connection>
+        <developerConnection>scm:git:ssh://git@bitbucket.org/hspconsortium/reference-apps.git</developerConnection>
+        <url>https://bitbucket.org/hspconsortium/reference-apps.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <build>
         <finalName>${project.artifactId}</finalName>
     </build>
